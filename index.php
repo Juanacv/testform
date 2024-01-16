@@ -29,6 +29,7 @@
         <input type="checkbox" name="idiomas[]" value="aleman">Alemán</input><br>        
         Retrato: <input type="file" name="retrato"><br>
         <input type="submit" name="enviar" value="Enviar"><br>
-    </form>
+    </form><br>
+    Año: <?php echo date('Y'); ?>
 </body>
 </html>
