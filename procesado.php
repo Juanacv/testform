@@ -39,7 +39,7 @@ function filtering($input) {
     $input = htmlspecialchars($input); // Traduce caracteres especiales en entidades HTML
     return $input;
 }
-function movePortrait($arrayFile, $tmpDir) {
+function movePortrait($arrayFile, $tmpName) {
     $uploadDir ='uploads/'; 
     // Comprobamos y renombramos el nombre del archivo
     $fileName = $arrayFile['filename'];
@@ -48,10 +48,10 @@ function movePortrait($arrayFile, $tmpDir) {
     $fileName = $fileName . rand(1, 100);
     // Desplazamos el archivo si no hay errores
     $fullName = $uploadDir.$fileName.".".$extension;
-    move_uploaded_file($tmpDir, $fullName);
+    move_uploaded_file($tmpName, $fullName);
     return $fileName.".".$extension;
 }
-function checkPortrait($fileName, $fileSize, $tmpDir) {
+function checkPortrait($fileName, $fileSize, $tmpName) {
     $max_file_size = "1572864";
     $validExtensions = array("jpg", "jpeg", "png");    
     $arrayFile = pathinfo($fileName);
@@ -64,14 +64,14 @@ function checkPortrait($fileName, $fileSize, $tmpDir) {
     if($fileSize > $max_file_size){
         return false;
     }
-    return movePortrait($arrayFile, $tmpDir);
+    return movePortrait($arrayFile, $tmpName);
 }
 function uploadFile() {
     if (!empty($_FILES['retrato']['name'])) {
         $fileName = $_FILES['retrato']['name'];
         $fileSize = $_FILES['retrato']['size'];
-        $tmpDir = $_FILES['retrato']['tmp_name'];
-        return checkPortrait($fileName, $fileSize, $tmpDir);
+        $tmpName = $_FILES['retrato']['tmp_name'];
+        return checkPortrait($fileName, $fileSize, $tmpName);
     } else {
         return false;
     }  
